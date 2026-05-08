@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 
 import API from "../api/axios";
 
@@ -40,59 +41,63 @@ function OwnerDashboard() {
   }
 
   return (
-    <div
-      style={{
-        width: "900px",
-        margin: "40px auto",
-      }}
-    >
-      <h1>Store Owner Dashboard</h1>
+    <>
+      <Navbar />
 
       <div
         style={{
-          border: "1px solid gray",
-          padding: "20px",
-          marginBottom: "30px",
+          width: "900px",
+          margin: "40px auto",
         }}
       >
-        <h2>{data.store.name}</h2>
+        <h1>Store Owner Dashboard</h1>
 
-        <p>
-          <strong>Address:</strong> {data.store.address}
-        </p>
+        <div
+          style={{
+            border: "1px solid gray",
+            padding: "20px",
+            marginBottom: "30px",
+          }}
+        >
+          <h2>{data.store.name}</h2>
 
-        <p>
-          <strong>Average Rating:</strong>{" "}
-          {data.average_rating || "No ratings yet"}
-        </p>
-      </div>
+          <p>
+            <strong>Address:</strong> {data.store.address}
+          </p>
 
-      <h2>Users Who Rated Your Store</h2>
+          <p>
+            <strong>Average Rating:</strong>{" "}
+            {data.average_rating || "No ratings yet"}
+          </p>
+        </div>
 
-      <table border="1" cellPadding="10" width="100%">
-        <thead>
-          <tr>
-            <th>Name</th>
+        <h2>Users Who Rated Your Store</h2>
 
-            <th>Email</th>
+        <table border="1" cellPadding="10" width="100%">
+          <thead>
+            <tr>
+              <th>Name</th>
 
-            <th>Rating</th>
-          </tr>
-        </thead>
+              <th>Email</th>
 
-        <tbody>
-          {data.rated_users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-
-              <td>{user.email}</td>
-
-              <td>{user.rating}</td>
+              <th>Rating</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+
+          <tbody>
+            {data.rated_users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+
+                <td>{user.email}</td>
+
+                <td>{user.rating}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 

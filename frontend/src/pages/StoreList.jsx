@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 
 import API from "../api/axios";
 
@@ -63,56 +64,60 @@ function StoreList() {
   }
 
   return (
-    <div
-      style={{
-        width: "800px",
-        margin: "50px auto",
-      }}
-    >
-      <h1>Stores</h1>
+    <>
+      <Navbar />
 
-      {stores.map((store) => (
-        <div
-          key={store.id}
-          style={{
-            border: "1px solid gray",
-            padding: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          <h2>{store.name}</h2>
+      <div
+        style={{
+          width: "800px",
+          margin: "50px auto",
+        }}
+      >
+        <h1>Stores</h1>
 
-          <p>
-            <strong>Address:</strong> {store.address}
-          </p>
+        {stores.map((store) => (
+          <div
+            key={store.id}
+            style={{
+              border: "1px solid gray",
+              padding: "20px",
+              marginBottom: "20px",
+            }}
+          >
+            <h2>{store.name}</h2>
 
-          <p>
-            <strong>Overall Rating:</strong>{" "}
-            {store.overall_rating || "No ratings"}
-          </p>
+            <p>
+              <strong>Address:</strong> {store.address}
+            </p>
 
-          <p>
-            <strong>Your Rating:</strong> {store.user_rating || "Not rated"}
-          </p>
+            <p>
+              <strong>Overall Rating:</strong>{" "}
+              {store.overall_rating || "No ratings"}
+            </p>
 
-          <div>
-            <strong>Rate Store:</strong>
+            <p>
+              <strong>Your Rating:</strong> {store.user_rating || "Not rated"}
+            </p>
 
-            {[1, 2, 3, 4, 5].map((num) => (
-              <button
-                key={num}
-                onClick={() => handleRating(store.id, num)}
-                style={{
-                  margin: "5px",
-                }}
-              >
-                {num}
-              </button>
-            ))}
+            <div>
+              <strong>Rate Store:</strong>
+
+              {[1, 2, 3, 4, 5].map((num) => (
+                <button
+                  key={num}
+                  onClick={() => handleRating(store.id, num)}
+                  style={{
+                    margin: "5px",
+                  }}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
 

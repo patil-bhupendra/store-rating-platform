@@ -1,20 +1,46 @@
 import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import StoreList from "./pages/StoreList";
 import AdminDashboard from "./pages/AdminDashboard";
 import OwnerDashboard from "./pages/OwnerDashboard";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-
       <Route path="/login" element={<Login />} />
 
-      <Route path="/stores" element={<StoreList />} />
-      <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/owner" element={<OwnerDashboard />} />
+      <Route path="/register" element={<Register />} />
+
+      <Route
+        path="/stores"
+        element={
+          <ProtectedRoute allowedRoles={["USER"]}>
+            <StoreList />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/owner"
+        element={
+          <ProtectedRoute allowedRoles={["STORE_OWNER"]}>
+            <OwnerDashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
