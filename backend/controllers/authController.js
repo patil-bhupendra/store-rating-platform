@@ -85,3 +85,50 @@ exports.login = async (req, res) => {
     });
   }
 };
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const { oldPassword, newPassword } = req.body;
+
+    const [users] = await db.query("SELECT * FROM users WHERE id = ?", [
+      userId,
+    ]);
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    const user = users[0];
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Old password is incorrect",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await db.query(
+      `
+      UPDATE users
+      SET password = ?
+      WHERE id = ?
+      `,
+      [hashedPassword, userId],
+    );
+
+    res.status(200).json({
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
