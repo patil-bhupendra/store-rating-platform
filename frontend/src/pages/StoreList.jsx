@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-
 import API from "../api/axios";
 
 function StoreList() {
   const [stores, setStores] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   const fetchStores = async () => {
@@ -21,7 +19,6 @@ function StoreList() {
       setStores(response.data);
     } catch (error) {
       console.log(error);
-
       alert("Failed to fetch stores");
     } finally {
       setLoading(false);
@@ -42,15 +39,13 @@ function StoreList() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
 
       alert("Rating submitted");
-
       fetchStores();
     } catch (error) {
       console.log(error);
-
       alert(error.response?.data?.message || "Rating failed");
     }
   };
@@ -60,7 +55,11 @@ function StoreList() {
   }, []);
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return (
+      <h2 className="text-center mt-10 text-2xl font-semibold">
+        Loading...
+      </h2>
+    );
   }
 
   return (
@@ -68,54 +67,55 @@ function StoreList() {
       <Navbar />
 
       <div
-        className="max-w-5xl mx-auto p-6"
         style={{
-          width: "800px",
-          margin: "50px auto",
+          maxWidth: "1200px",
+          margin: "40px auto",
+          padding: "20px",
+          backgroundColor: "#f5f7fb",
+          minHeight: "100vh",
         }}
       >
-        <h1>Stores</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gray-800">
+          Stores
+        </h1>
 
         {stores.map((store) => (
           <div
-            className="bg-white shadow-md rounded-2xl p-6 mb-6"
             key={store.id}
-            style={{
-              border: "1px solid gray",
-              padding: "20px",
-              marginBottom: "20px",
-            }}
+            className="bg-white shadow-md rounded-2xl p-6 mb-6 border-l-4 border-indigo-500"
           >
-            <h2>{store.name}</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-3">
+              {store.name}
+            </h2>
 
-            <p>
+            <p className="text-gray-600 mb-2">
               <strong>Address:</strong> {store.address}
             </p>
 
-            <p>
+            <p className="text-gray-600 mb-2">
               <strong>Overall Rating:</strong>{" "}
               {store.overall_rating || "No ratings"}
             </p>
 
-            <p>
-              <strong>Your Rating:</strong> {store.user_rating || "Not rated"}
+            <p className="text-gray-600 mb-4">
+              <strong>Your Rating:</strong>{" "}
+              {store.user_rating || "Not rated"}
             </p>
 
             <div>
-              <strong>Rate Store:</strong>
+              <strong className="text-gray-700">Rate Store:</strong>
 
-              {[1, 2, 3, 4, 5].map((num) => (
-                <button
-                  className="bg-black text-white px-4 py-2 rounded-lg mr-2 mt-2"
-                  key={num}
-                  onClick={() => handleRating(store.id, num)}
-                  style={{
-                    margin: "5px",
-                  }}
-                >
-                  {num}
-                </button>
-              ))}
+              <div className="mt-3 flex flex-wrap gap-2">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <button
+                    key={num}
+                    onClick={() => handleRating(store.id, num)}
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                  >
+                    {num}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         ))}
