@@ -68,6 +68,7 @@ function StoreList() {
       <Navbar />
 
       <div
+        className="max-w-5xl mx-auto p-6"
         style={{
           width: "800px",
           margin: "50px auto",
@@ -77,6 +78,7 @@ function StoreList() {
 
         {stores.map((store) => (
           <div
+            className="bg-white shadow-md rounded-2xl p-6 mb-6"
             key={store.id}
             style={{
               border: "1px solid gray",
@@ -104,6 +106,7 @@ function StoreList() {
 
               {[1, 2, 3, 4, 5].map((num) => (
                 <button
+                  className="bg-black text-white px-4 py-2 rounded-lg mr-2 mt-2"
                   key={num}
                   onClick={() => handleRating(store.id, num)}
                   style={{

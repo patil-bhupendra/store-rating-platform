@@ -26,14 +26,10 @@ function Login() {
 
       const { token, user } = response.data;
 
-      // save token + user
       localStorage.setItem("token", token);
 
       localStorage.setItem("user", JSON.stringify(user));
 
-      alert("Login successful");
-
-      // role-based redirect
       if (user.role === "ADMIN") {
         navigate("/admin");
       } else if (user.role === "STORE_OWNER") {
@@ -47,41 +43,39 @@ function Login() {
   };
 
   return (
-    <div
-      style={{
-        width: "300px",
-        margin: "100px auto",
-      }}
-    >
-      <h2>Login</h2>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-96">
+        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="border w-full p-3 rounded-lg mb-4"
+          />
 
-        <br />
-        <br />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="border w-full p-3 rounded-lg mb-6"
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-        <br />
-
-        <button type="submit">Login</button>
-      </form>
+          <button
+            type="submit"
+            className="bg-black text-white w-full py-3 rounded-lg hover:opacity-90"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -14,29 +14,20 @@ function Navbar() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "20px",
-        borderBottom: "1px solid gray",
-      }}
-    >
-      <h2>Store Rating Platform</h2>
+    <nav className="flex justify-between items-center px-8 py-4 shadow-md bg-white">
+      <h1 className="text-2xl font-bold">Store Rating Platform</h1>
 
-      <div>
-        <span>{user?.role}</span>
+      <div className="flex items-center gap-4">
+        <span className="font-medium">{user?.role}</span>
 
         <button
           onClick={logout}
-          style={{
-            marginLeft: "20px",
-          }}
+          className="bg-black text-white px-4 py-2 rounded-lg hover:opacity-90"
         >
           Logout
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 

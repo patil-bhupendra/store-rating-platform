@@ -83,16 +83,16 @@ function AdminDashboard() {
             marginBottom: "40px",
           }}
         >
-          <div
+          <div className="bg-white shadow-md rounded-2xl p-6"
             style={{
               border: "1px solid gray",
               padding: "20px",
               width: "200px",
             }}
           >
-            <h3>Total Users</h3>
+            <h3 className="text-xl font-semibold">Total Users</h3>
 
-            <p>{stats.totalUsers}</p>
+            <p className="text-3xl font-bold mt-4">{stats.totalUsers}</p>
           </div>
 
           <div
@@ -125,26 +125,26 @@ function AdminDashboard() {
         <table border="1" cellPadding="10" width="100%">
           <thead>
             <tr>
-              <th>Name</th>
+              <th className="p-3 border">Name</th>
 
-              <th>Email</th>
+              <th className="p-3 border">Email</th>
 
-              <th>Address</th>
+              <th className="p-3 border">Address</th>
 
-              <th>Role</th>
+              <th className="p-3 border">Role</th>
             </tr>
           </thead>
 
           <tbody>
             {users.map((user) => (
               <tr key={user.id}>
-                <td>{user.name}</td>
+                <td className="p-3 border">{user.name}</td>
 
-                <td>{user.email}</td>
+                <td className="p-3 border">{user.email}</td>
 
-                <td>{user.address}</td>
+                <td className="p-3 border">{user.address}</td>
 
-                <td>{user.role}</td>
+                <td className="p-3 border">{user.role}</td>
               </tr>
             ))}
           </tbody>
@@ -155,29 +155,29 @@ function AdminDashboard() {
 
         <h2>Stores</h2>
 
-        <table border="1" cellPadding="10" width="100%">
-          <thead>
+        <table border="1" cellPadding="10" width="100%" className="w-full border border-gray-300 mt-4">
+          <thead className="bg-gray-100">
             <tr>
-              <th>Name</th>
+              <th className="p-3 border">Name</th>
 
-              <th>Email</th>
+              <th className="p-3 border">Email</th>
 
-              <th>Address</th>
+              <th className="p-3 border">Address</th>
 
-              <th>Rating</th>
+              <th className="p-3 border">Rating</th>
             </tr>
           </thead>
 
           <tbody>
             {stores.map((store) => (
               <tr key={store.id}>
-                <td>{store.name}</td>
+                <td className="p-3 border">{store.name}</td>
 
-                <td>{store.email}</td>
+                <td className="p-3 border">{store.email}</td>
 
-                <td>{store.address}</td>
+                <td className="p-3 border">{store.address}</td>
 
-                <td>{store.overall_rating || "No ratings"}</td>
+                <td className="p-3 border">{store.overall_rating || "No ratings"}</td>
               </tr>
             ))}
           </tbody>

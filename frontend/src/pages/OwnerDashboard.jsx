@@ -73,25 +73,30 @@ function OwnerDashboard() {
 
         <h2>Users Who Rated Your Store</h2>
 
-        <table border="1" cellPadding="10" width="100%">
-          <thead>
+        <table
+          className="w-full border border-gray-300 mt-4"
+          border="1"
+          cellPadding="10"
+          width="100%"
+        >
+          <thead className="bg-gray-100">
             <tr>
-              <th>Name</th>
+              <th className="p-3 border">Name</th>
 
-              <th>Email</th>
+              <th className="p-3 border">Email</th>
 
-              <th>Rating</th>
+              <th className="p-3 border">Rating</th>
             </tr>
           </thead>
 
           <tbody>
             {data.rated_users.map((user) => (
               <tr key={user.id}>
-                <td>{user.name}</td>
+                <td className="p-3 border">{user.name}</td>
 
-                <td>{user.email}</td>
+                <td className="p-3 border">{user.email}</td>
 
-                <td>{user.rating}</td>
+                <td className="p-3 border">{user.rating}</td>
               </tr>
             ))}
           </tbody>
