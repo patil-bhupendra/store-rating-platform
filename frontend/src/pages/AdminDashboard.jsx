@@ -1,292 +1,3 @@
-// import { useEffect, useState } from "react";
-// import Navbar from "../components/Navbar";
-
-// import API from "../api/axios";
-
-// function AdminDashboard() {
-//   const [stats, setStats] = useState({});
-
-//   const [users, setUsers] = useState([]);
-
-//   const [stores, setStores] = useState([]);
-
-//   const token = localStorage.getItem("token");
-
-//   const [userForm, setUserForm] = useState({
-//     name: "",
-//     email: "",
-//     password: "",
-//     address: "",
-//     role: "USER",
-//   });
-
-//   const [storeForm, setStoreForm] = useState({
-//     name: "",
-//     email: "",
-//     address: "",
-//     owner_id: "",
-//   });
-
-//   const handleUserChange = (e) => {
-//     setUserForm({
-//       ...userForm,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   const handleStoreChange = (e) => {
-//     setStoreForm({
-//       ...storeForm,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   const fetchStats = async () => {
-//     try {
-//       const response = await API.get("/admin/dashboard", {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setStats(response.data);
-//     } catch (error) {
-//       console.log(error);
-
-//       alert("Failed to fetch stats");
-//     }
-//   };
-
-//   const fetchUsers = async () => {
-//     try {
-//       const response = await API.get("/admin/users", {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setUsers(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   const fetchStores = async () => {
-//     try {
-//       const response = await API.get("/admin/stores", {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setStores(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   const addUser = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       await API.post("/admin/add-user", userForm, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       alert("User added successfully");
-
-//       fetchUsers();
-
-//       fetchStats();
-
-//       setUserForm({
-//         name: "",
-//         email: "",
-//         password: "",
-//         address: "",
-//         role: "USER",
-//       });
-//     } catch (error) {
-//       console.log(error);
-
-//       alert(error.response?.data?.message);
-//     }
-//   };
-
-//   const addStore = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       await API.post("/admin/add-store", storeForm, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       alert("Store added successfully");
-
-//       fetchStores();
-
-//       fetchStats();
-
-//       setStoreForm({
-//         name: "",
-//         email: "",
-//         address: "",
-//         owner_id: "",
-//       });
-//     } catch (error) {
-//       console.log(error);
-
-//       alert(error.response?.data?.message);
-//     }
-//   };
-
-//   <h1>Admin Dashboard</h1>;
-
-//   useEffect(() => {
-//     fetchStats();
-
-//     fetchUsers();
-
-//     fetchStores();
-//   }, []);
-
-//   return (
-//     <>
-//       <Navbar />
-
-//       <div
-//         style={{
-//           width: "1000px",
-//           margin: "40px auto",
-//         }}
-//       >
-//         <h1>Admin Dashboard</h1>
-
-//         <div
-//           style={{
-//             display: "flex",
-//             gap: "20px",
-//             marginBottom: "40px",
-//           }}
-//         >
-//           <div
-//             className="bg-white shadow-md rounded-2xl p-6"
-//             style={{
-//               border: "1px solid gray",
-//               padding: "20px",
-//               width: "200px",
-//             }}
-//           >
-//             <h3 className="text-xl font-semibold">Total Users</h3>
-
-//             <p className="text-3xl font-bold mt-4">{stats.totalUsers}</p>
-//           </div>
-
-//           <div
-//             style={{
-//               border: "1px solid gray",
-//               padding: "20px",
-//               width: "200px",
-//             }}
-//           >
-//             <h3>Total Stores</h3>
-
-//             <p>{stats.totalStores}</p>
-//           </div>
-
-//           <div
-//             style={{
-//               border: "1px solid gray",
-//               padding: "20px",
-//               width: "200px",
-//             }}
-//           >
-//             <h3>Total Ratings</h3>
-
-//             <p>{stats.totalRatings}</p>
-//           </div>
-//         </div>
-
-//         <h2>Users</h2>
-
-//         <table border="1" cellPadding="10" width="100%">
-//           <thead>
-//             <tr>
-//               <th className="p-3 border">Name</th>
-
-//               <th className="p-3 border">Email</th>
-
-//               <th className="p-3 border">Address</th>
-
-//               <th className="p-3 border">Role</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {users.map((user) => (
-//               <tr key={user.id}>
-//                 <td className="p-3 border">{user.name}</td>
-
-//                 <td className="p-3 border">{user.email}</td>
-
-//                 <td className="p-3 border">{user.address}</td>
-
-//                 <td className="p-3 border">{user.role}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-
-//         <br />
-//         <br />
-
-//         <h2>Stores</h2>
-
-//         <table
-//           border="1"
-//           cellPadding="10"
-//           width="100%"
-//           className="w-full border border-gray-300 mt-4"
-//         >
-//           <thead className="bg-gray-100">
-//             <tr>
-//               <th className="p-3 border">Name</th>
-
-//               <th className="p-3 border">Email</th>
-
-//               <th className="p-3 border">Address</th>
-
-//               <th className="p-3 border">Rating</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {stores.map((store) => (
-//               <tr key={store.id}>
-//                 <td className="p-3 border">{store.name}</td>
-
-//                 <td className="p-3 border">{store.email}</td>
-
-//                 <td className="p-3 border">{store.address}</td>
-
-//                 <td className="p-3 border">
-//                   {store.overall_rating || "No ratings"}
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default AdminDashboard;
-
 import { useEffect, useState } from "react";
 
 import Navbar from "../components/Navbar";
@@ -302,7 +13,9 @@ function AdminDashboard() {
 
   const token = localStorage.getItem("token");
 
-  // USER FORM
+  const [userFilter, setUserFilter] = useState("");
+  const [storeFilter, setStoreFilter] = useState("");
+
   const [userForm, setUserForm] = useState({
     name: "",
     email: "",
@@ -311,7 +24,6 @@ function AdminDashboard() {
     role: "USER",
   });
 
-  // STORE FORM
   const [storeForm, setStoreForm] = useState({
     name: "",
     email: "",
@@ -319,7 +31,6 @@ function AdminDashboard() {
     owner_id: "",
   });
 
-  // HANDLE USER FORM
   const handleUserChange = (e) => {
     setUserForm({
       ...userForm,
@@ -327,7 +38,6 @@ function AdminDashboard() {
     });
   };
 
-  // HANDLE STORE FORM
   const handleStoreChange = (e) => {
     setStoreForm({
       ...storeForm,
@@ -335,7 +45,6 @@ function AdminDashboard() {
     });
   };
 
-  // FETCH STATS
   const fetchStats = async () => {
     try {
       const response = await API.get("/admin/dashboard", {
@@ -347,12 +56,9 @@ function AdminDashboard() {
       setStats(response.data);
     } catch (error) {
       console.log(error);
-
-      alert("Failed to fetch stats");
     }
   };
 
-  // FETCH USERS
   const fetchUsers = async () => {
     try {
       const response = await API.get("/admin/users", {
@@ -367,7 +73,6 @@ function AdminDashboard() {
     }
   };
 
-  // FETCH STORES
   const fetchStores = async () => {
     try {
       const response = await API.get("/admin/stores", {
@@ -382,7 +87,6 @@ function AdminDashboard() {
     }
   };
 
-  // ADD USER
   const addUser = async (e) => {
     e.preventDefault();
 
@@ -396,7 +100,6 @@ function AdminDashboard() {
       alert("User added successfully");
 
       fetchUsers();
-
       fetchStats();
 
       setUserForm({
@@ -407,13 +110,10 @@ function AdminDashboard() {
         role: "USER",
       });
     } catch (error) {
-      console.log(error);
-
       alert(error.response?.data?.message);
     }
   };
 
-  // ADD STORE
   const addStore = async (e) => {
     e.preventDefault();
 
@@ -427,7 +127,6 @@ function AdminDashboard() {
       alert("Store added successfully");
 
       fetchStores();
-
       fetchStats();
 
       setStoreForm({
@@ -437,17 +136,13 @@ function AdminDashboard() {
         owner_id: "",
       });
     } catch (error) {
-      console.log(error);
-
       alert(error.response?.data?.message);
     }
   };
 
   useEffect(() => {
     fetchStats();
-
     fetchUsers();
-
     fetchStores();
   }, []);
 
@@ -455,237 +150,195 @@ function AdminDashboard() {
     <>
       <Navbar />
 
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "40px auto",
-          padding: "20px",
-          backgroundColor: "#f5f7fb",
-          minHeight: "100vh",
-        }}
-      >
-        <h1 className="text-4xl font-bold mb-8 text-gray-800">
-          Admin Dashboard
-        </h1>
+      <div className="max-w-6xl mx-auto p-6 bg-gray-50 min-h-screen">
+        <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
 
-        {/* ADD USER */}
-        <div className="bg-white shadow-md rounded-2xl p-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="bg-white p-6 rounded-xl shadow">
+            <h3>Total Users</h3>
+            <p className="text-3xl font-bold">{stats.totalUsers}</p>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow">
+            <h3>Total Stores</h3>
+            <p className="text-3xl font-bold">{stats.totalStores}</p>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow">
+            <h3>Total Ratings</h3>
+            <p className="text-3xl font-bold">{stats.totalRatings}</p>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow mb-8">
           <h2 className="text-2xl font-bold mb-4">Add User</h2>
 
-          <form
-            onSubmit={addUser}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4"
-          >
+          <form onSubmit={addUser} className="grid md:grid-cols-2 gap-4">
             <input
-              type="text"
               name="name"
-              placeholder="Full Name"
               value={userForm.name}
               onChange={handleUserChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Name"
+              className="border p-2 rounded"
             />
 
             <input
-              type="email"
               name="email"
-              placeholder="Email"
               value={userForm.email}
               onChange={handleUserChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Email"
+              className="border p-2 rounded"
             />
 
             <input
-              type="password"
               name="password"
-              placeholder="Password"
               value={userForm.password}
               onChange={handleUserChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Password"
+              className="border p-2 rounded"
             />
 
             <input
-              type="text"
               name="address"
-              placeholder="Address"
               value={userForm.address}
               onChange={handleUserChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Address"
+              className="border p-2 rounded"
             />
 
             <select
               name="role"
               value={userForm.role}
               onChange={handleUserChange}
-              className="border p-3 rounded-lg"
+              className="border p-2 rounded"
             >
               <option value="USER">USER</option>
-
               <option value="ADMIN">ADMIN</option>
-
-              <option value="STORE_OWNER">STORE OWNER</option>
+              <option value="STORE_OWNER">STORE_OWNER</option>
             </select>
 
-            <button
-              type="submit"
-              className="bg-indigo-600 text-white rounded-lg px-5 py-3 hover:bg-indigo-700"
-            >
+            <button className="bg-blue-600 text-white p-2 rounded">
               Add User
             </button>
           </form>
         </div>
 
-        {/* ADD STORE */}
-        <div className="bg-white shadow-md rounded-2xl p-6 mb-8">
+        <div className="bg-white p-6 rounded-xl shadow mb-8">
           <h2 className="text-2xl font-bold mb-4">Add Store</h2>
 
-          <form
-            onSubmit={addStore}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4"
-          >
+          <form onSubmit={addStore} className="grid md:grid-cols-2 gap-4">
             <input
-              type="text"
               name="name"
-              placeholder="Store Name"
               value={storeForm.name}
               onChange={handleStoreChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Store Name"
+              className="border p-2 rounded"
             />
 
             <input
-              type="email"
               name="email"
-              placeholder="Store Email"
               value={storeForm.email}
               onChange={handleStoreChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Email"
+              className="border p-2 rounded"
             />
 
             <input
-              type="text"
               name="address"
-              placeholder="Store Address"
               value={storeForm.address}
               onChange={handleStoreChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Address"
+              className="border p-2 rounded"
             />
 
             <input
-              type="number"
               name="owner_id"
-              placeholder="Owner ID"
               value={storeForm.owner_id}
               onChange={handleStoreChange}
-              className="border p-3 rounded-lg"
-              required
+              placeholder="Owner ID"
+              className="border p-2 rounded"
             />
 
-            <button
-              type="submit"
-              className="bg-indigo-600 text-white rounded-lg px-5 py-3 hover:bg-indigo-700"
-            >
+            <button className="bg-green-600 text-white p-2 rounded">
               Add Store
             </button>
           </form>
         </div>
 
-        {/* STATS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white shadow-md rounded-2xl p-6 border-l-4 border-indigo-500">
-            <h3 className="text-gray-500 text-lg">Total Users</h3>
+        <div className="bg-white p-6 rounded-xl shadow mb-8">
+          <h2 className="text-xl font-bold mb-4">Users</h2>
 
-            <p className="text-4xl font-bold mt-4">{stats.totalUsers}</p>
-          </div>
+          <input
+            placeholder="Search users..."
+            value={userFilter}
+            onChange={(e) => setUserFilter(e.target.value)}
+            className="border p-2 w-full mb-4"
+          />
 
-          <div className="bg-white shadow-md rounded-2xl p-6 border-l-4 border-cyan-500">
-            <h3 className="text-gray-500 text-lg">Total Stores</h3>
+          <table className="w-full border">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Role</th>
+              </tr>
+            </thead>
 
-            <p className="text-4xl font-bold mt-4">{stats.totalStores}</p>
-          </div>
-
-          <div className="bg-white shadow-md rounded-2xl p-6 border-l-4 border-pink-500">
-            <h3 className="text-gray-500 text-lg">Total Ratings</h3>
-
-            <p className="text-4xl font-bold mt-4">{stats.totalRatings}</p>
-          </div>
-        </div>
-
-        {/* USERS TABLE */}
-        <div className="bg-white shadow-md rounded-2xl p-6 mb-10">
-          <h2 className="text-2xl font-bold mb-6">Users</h2>
-
-          <div className="overflow-x-auto">
-            <table className="w-full border border-gray-300">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="p-3 border">Name</th>
-
-                  <th className="p-3 border">Email</th>
-
-                  <th className="p-3 border">Address</th>
-
-                  <th className="p-3 border">Role</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {users.map((user) => (
+            <tbody>
+              {users
+                .filter(
+                  (u) =>
+                    u.name.toLowerCase().includes(userFilter.toLowerCase()) ||
+                    u.email.toLowerCase().includes(userFilter.toLowerCase()),
+                )
+                .map((user) => (
                   <tr key={user.id}>
-                    <td className="p-3 border">{user.name}</td>
-
-                    <td className="p-3 border">{user.email}</td>
-
-                    <td className="p-3 border">{user.address}</td>
-
-                    <td className="p-3 border">{user.role}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.address}</td>
+                    <td>{user.role}</td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
 
-        {/* STORES TABLE */}
-        <div className="bg-white shadow-md rounded-2xl p-6">
-          <h2 className="text-2xl font-bold mb-6">Stores</h2>
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2 className="text-xl font-bold mb-4">Stores</h2>
 
-          <div className="overflow-x-auto">
-            <table className="w-full border border-gray-300">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="p-3 border">Name</th>
+          <input
+            placeholder="Search stores..."
+            value={storeFilter}
+            onChange={(e) => setStoreFilter(e.target.value)}
+            className="border p-2 w-full mb-4"
+          />
 
-                  <th className="p-3 border">Email</th>
+          <table className="w-full border">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
 
-                  <th className="p-3 border">Address</th>
-
-                  <th className="p-3 border">Rating</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {stores.map((store) => (
+            <tbody>
+              {stores
+                .filter((s) =>
+                  s.name.toLowerCase().includes(storeFilter.toLowerCase()),
+                )
+                .map((store) => (
                   <tr key={store.id}>
-                    <td className="p-3 border">{store.name}</td>
-
-                    <td className="p-3 border">{store.email}</td>
-
-                    <td className="p-3 border">{store.address}</td>
-
-                    <td className="p-3 border">
-                      {store.overall_rating || "No ratings"}
-                    </td>
+                    <td>{store.name}</td>
+                    <td>{store.email}</td>
+                    <td>{store.address}</td>
+                    <td>{store.overall_rating || "No ratings"}</td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </>
