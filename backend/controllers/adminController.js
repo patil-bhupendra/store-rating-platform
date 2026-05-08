@@ -79,3 +79,88 @@ exports.getDashboardStats = async (req, res) => {
     });
   }
 };
+
+exports.getUsers = async (req, res) => {
+  try {
+    const {
+      name = "",
+      email = "",
+      address = "",
+      role = "",
+      sortBy = "name",
+      order = "ASC",
+    } = req.query;
+
+    const [users] = await db.query(
+      `
+      SELECT
+        id,
+        name,
+        email,
+        address,
+        role
+
+      FROM users
+
+      WHERE
+        name LIKE ?
+        AND email LIKE ?
+        AND address LIKE ?
+        AND role LIKE ?
+
+      ORDER BY ${sortBy} ${order}
+      `,
+      [`%${name}%`, `%${email}%`, `%${address}%`, `%${role}%`],
+    );
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+exports.getStores = async (req, res) => {
+  try {
+    const {
+      name = "",
+      address = "",
+      sortBy = "name",
+      order = "ASC",
+    } = req.query;
+
+    const [stores] = await db.query(
+      `
+      SELECT
+        stores.id,
+        stores.name,
+        stores.email,
+        stores.address,
+
+        ROUND(AVG(ratings.rating), 1)
+        AS overall_rating
+
+      FROM stores
+
+      LEFT JOIN ratings
+      ON stores.id = ratings.store_id
+
+      WHERE
+        stores.name LIKE ?
+        AND stores.address LIKE ?
+
+      GROUP BY stores.id
+
+      ORDER BY ${sortBy} ${order}
+      `,
+      [`%${name}%`, `%${address}%`],
+    );
+
+    res.status(200).json(stores);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
