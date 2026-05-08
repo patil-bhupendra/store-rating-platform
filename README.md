@@ -5,8 +5,8 @@ A full-stack web application that allows users to rate stores (1–5 stars) with
 ---
 
 ##  Live Demo
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:5000`
+- Frontend: ``
+- Backend: ``
 
 ---
 
@@ -79,3 +79,97 @@ A full-stack web application that allows users to rate stores (1–5 stars) with
 ### 1. Clone Repository
 ```bash
 git clone https://github.com/your-username/store-rating-platform.git
+```
+
+## 2. Backend Setup
+cd backend
+npm install
+
+Create .env file:
+```
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=store_rating_app
+JWT_SECRET=your_secret_key
+```
+
+Run backend:
+```
+npx nodemon app.js
+```
+## 3. Frontend Setup
+```
+cd frontend
+npm install
+npm run dev
+```
+## Database Schema Overview
+### Users Table
+- id
+- name
+- email
+- password
+- address
+- role (ADMIN / USER / STORE_OWNER)
+
+### Stores Table
+- id
+- name
+- email
+- address
+- owner_id
+  
+### Ratings Table
+- id
+- user_id
+- store_id
+- rating (1–5)
+  
+## Authentication Flow
+1. User logs in
+2. JWT token generated
+3. Token stored in localStorage
+4. Protected routes accessed using token
+5. Role-based access enforced
+
+## API Endpoints
+
+**Auth**
+POST /api/auth/register
+POST /api/auth/login
+PUT /api/auth/update-password
+
+**Admin**
+- POST /api/admin/add-user
+- POST /api/admin/add-store
+- GET /api/admin/dashboard
+- GET /api/admin/users
+- GET /api/admin/stores
+- 
+**Ratings**
+POST /api/stores/rate
+
+## Key Highlights
+- Clean role-based architecture
+- Secure authentication with JWT
+- Fully functional admin dashboard
+- Search & filter system
+- Scalable backend design
+- Production-ready structure
+
+## Future Improvements
+- Pagination for tables
+- Advanced sorting (asc/desc UI toggle)
+- Email verification
+- Deployment (Render + Vercel)
+- Better UI/UX polish
+
+## Author
+GitHub: [Your GitHub Link]
+Project: Full Stack Internship Assignment (Roxiler Systems)
+
+### License
+
+This project is for educational/internship evaluation purposes.
