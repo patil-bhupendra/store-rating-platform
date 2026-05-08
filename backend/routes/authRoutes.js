@@ -8,12 +8,24 @@ const {
   updatePassword,
 } = require("../controllers/authController");
 
-const { verifyToken } = require("../middleware/authMiddleware");
+const {
+  verifyToken,
+} = require("../middleware/authMiddleware");
 
-router.post("/register", register);
+router.post(
+  "/register",
+  register
+);
 
-router.post("/login", login);
+router.post(
+  "/login",
+  login
+);
 
-router.put("/update-password", verifyToken, updatePassword);
+router.put(
+  "/update-password",
+  verifyToken,
+  updatePassword
+);
 
 module.exports = router;
