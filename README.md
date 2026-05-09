@@ -137,19 +137,19 @@ npm run dev
 ## API Endpoints
 
 **Auth**
-POST /api/auth/register
-POST /api/auth/login
-PUT /api/auth/update-password
+POST ```/api/auth/register```
+POST ```/api/auth/login```
+PUT ```/api/auth/update-password```
 
 **Admin**
-- POST /api/admin/add-user
-- POST /api/admin/add-store
-- GET /api/admin/dashboard
-- GET /api/admin/users
-- GET /api/admin/stores
-- 
+- POST ```/api/admin/add-user```
+- POST ```/api/admin/add-store```
+- GET ```/api/admin/dashboard```
+- GET ```/api/admin/users```
+- GET ```/api/admin/stores```
+
 **Ratings**
-POST /api/stores/rate
+POST ```/api/stores/rate```
 
 ## Key Highlights
 - Clean role-based architecture
@@ -167,8 +167,7 @@ POST /api/stores/rate
 - Better UI/UX polish
 
 ## Author
-GitHub: [Your GitHub Link]
-Project: Full Stack Internship Assignment (Roxiler Systems)
+GitHub: [[[Your GitHub Link](https://github.com/patil-bhupendra)]](https://github.com/patil-bhupendra)
 
 ### License
 
