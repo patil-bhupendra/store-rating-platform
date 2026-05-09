@@ -5,8 +5,8 @@ A full-stack web application that allows users to rate stores (1–5 stars) with
 ---
 
 ##  Live Demo
-- Frontend: ``
-- Backend: ``
+- Frontend: https://store-rating-platform-ashy.vercel.app
+- Backend: https://store-rating-platform-z88r.onrender.com
 
 ---
 
