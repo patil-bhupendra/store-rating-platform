@@ -167,7 +167,7 @@ POST ```/api/stores/rate```
 - Better UI/UX polish
 
 ## Author
-GitHub: [[(https://github.com/patil-bhupendra)]](https://github.com/patil-bhupendra)
+GitHub: https://github.com/patil-bhupendra
 
 ### License
 
