@@ -167,8 +167,8 @@ POST ```/api/stores/rate```
 - Better UI/UX polish
 
 ## Author
-GitHub: [[[Your GitHub Link](https://github.com/patil-bhupendra)]](https://github.com/patil-bhupendra)
+GitHub: [[(https://github.com/patil-bhupendra)]](https://github.com/patil-bhupendra)
 
 ### License
 
-This project is for educational/internship evaluation purposes.
+This project is for internship evaluation purposes.
